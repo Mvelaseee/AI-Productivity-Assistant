@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI Workplace Productivity Assistant</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>AI Workplace Productivity Assistant</h1>
+    <p>Meeting summaries, task planning, and an assistant chatbot — powered by live AI, built for the CAPACITI AI Skill Accelerator project.</p>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="summarizer">Meeting notes summarizer</div>
+    <div class="tab" data-tab="planner">Task planner</div>
+    <div class="tab" data-tab="chat">Assistant chatbot</div>
+  </div>
+
+  <!-- SUMMARIZER -->
+  <div class="panel active" id="panel-summarizer">
+    <div class="card">
+      <label for="notesInput">Paste raw meeting notes</label>
+      <textarea id="notesInput" placeholder="e.g. Attendees: Sam, Priya, Leo. Discussed Q3 launch delay due to vendor issue. Priya to follow up with vendor by Friday. Leo to redraft timeline by next Tuesday..."></textarea>
+      <button class="primary" id="summarizeBtn">Summarize notes</button>
+      <div class="error" id="summarizeError"></div>
+      <div class="output" id="summarizeOutput" style="display:none;"></div>
+      <div class="disclaimer">AI-generated summary — verify action items, owners, and deadlines against the original notes before acting on them.</div>
+    </div>
+  </div>
+
+  <!-- PLANNER -->
+  <div class="panel" id="panel-planner">
+    <div class="card">
+      <label for="tasksInput">List your tasks (one per line, or paste action items from a meeting summary)</label>
+      <textarea id="tasksInput" placeholder="e.g.&#10;Follow up with vendor about delay&#10;Redraft project timeline&#10;Prepare client deck for Thursday&#10;Reply to HR about leave form"></textarea>
+      <div class="row">
+        <div>
+          <label for="planHorizon">Plan for</label>
+          <select id="planHorizon">
+            <option value="today">Today</option>
+            <option value="this week" selected>This week</option>
+          </select>
+        </div>
+        <div>
+          <label for="planContext">Any constraints? (optional)</label>
+          <input type="text" id="planContext" placeholder="e.g. only 2 hours of focus time per day, no meetings Friday">
+        </div>
+      </div>
+      <button class="primary" id="planBtn">Generate plan</button>
+      <div class="error" id="planError"></div>
+      <div class="output" id="planOutput" style="display:none;"></div>
+      <div class="disclaimer">AI-generated prioritization is a starting point — adjust based on context the AI can't see (e.g. office politics, unstated urgency).</div>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="panel" id="panel-chat">
+    <div class="card">
+      <label>Ask the workplace assistant anything</label>
+      <div id="chatLog"></div>
+      <div class="chatInputRow">
+        <input type="text" id="chatInput" placeholder="e.g. Draft a polite follow-up email to a client who hasn't responded in a week">
+        <button class="primary" id="chatSendBtn">Send</button>
+      </div>
+      <div class="error" id="chatError"></div>
+      <div class="disclaimer">This is a general-purpose assistant, not a source of legal, financial, or HR policy — check anything sensitive with a qualified colleague.</div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
