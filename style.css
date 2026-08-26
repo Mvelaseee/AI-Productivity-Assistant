@@ -7,6 +7,16 @@
   --accent: #1d9e75;
   --accent-dark: #0f6e56;
   --danger: #d85a30;
+
+  /* Per-feature accent colors */
+  --summarizer: #028090;   /* deep teal */
+  --summarizer-dark: #015e6a;
+  --planner: #00a896;      /* seafoam */
+  --planner-dark: #027a6c;
+  --chat: #02c39a;         /* mint */
+  --chat-dark: #039779;
+
+  --dark-bg: #0b2e33;
 }
 * { box-sizing: border-box; }
 body {
@@ -18,9 +28,15 @@ body {
   line-height: 1.6;
 }
 .app { max-width: 900px; margin: 0 auto; }
-header { margin-bottom: 20px; }
-header h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; }
-header p { color: var(--muted); font-size: 14px; margin: 0; }
+
+header {
+  margin: -24px -24px 24px;
+  padding: 28px 24px;
+  background: linear-gradient(120deg, var(--dark-bg) 0%, var(--summarizer) 55%, var(--planner) 100%);
+  border-radius: 0 0 16px 16px;
+}
+header h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; color: #ffffff; }
+header p { color: #cdeeea; font-size: 14px; margin: 0; }
 
 .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
 .tab {
@@ -31,17 +47,24 @@ header p { color: var(--muted); font-size: 14px; margin: 0; }
   border-bottom: 2px solid transparent;
   user-select: none;
 }
-.tab.active { color: var(--accent-dark); border-bottom-color: var(--accent); font-weight: 600; }
+.tab.active { font-weight: 600; }
+.tab[data-tab="summarizer"].active { color: var(--summarizer-dark); border-bottom-color: var(--summarizer); }
+.tab[data-tab="planner"].active { color: var(--planner-dark); border-bottom-color: var(--planner); }
+.tab[data-tab="chat"].active { color: var(--chat-dark); border-bottom-color: var(--chat); }
 .panel { display: none; }
 .panel.active { display: block; }
 
 .card {
   background: var(--card);
   border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 16px;
 }
+#panel-summarizer .card { border-top-color: var(--summarizer); }
+#panel-planner .card { border-top-color: var(--planner); }
+#panel-chat .card { border-top-color: var(--chat); }
 label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
 textarea, select, input[type=text] {
   width: 100%;
@@ -72,6 +95,13 @@ button.primary {
 button.primary:hover { background: var(--accent-dark); }
 button.primary:disabled { background: #b7c7c0; cursor: not-allowed; }
 
+#panel-summarizer button.primary { background: var(--summarizer); }
+#panel-summarizer button.primary:hover { background: var(--summarizer-dark); }
+#panel-planner button.primary { background: var(--planner); }
+#panel-planner button.primary:hover { background: var(--planner-dark); }
+#panel-chat button.primary { background: var(--chat); }
+#panel-chat button.primary:hover { background: var(--chat-dark); }
+
 .output {
   margin-top: 16px;
   padding: 16px;
@@ -95,7 +125,27 @@ button.primary:disabled { background: #b7c7c0; cursor: not-allowed; }
 /* Chat */
 #chatLog { display: flex; flex-direction: column; gap: 10px; max-height: 380px; overflow-y: auto; margin-bottom: 12px; padding-right: 4px; }
 .msg { padding: 10px 14px; border-radius: 10px; font-size: 14px; max-width: 85%; white-space: pre-wrap; }
-.msg.user { background: var(--accent); color: white; align-self: flex-end; }
+.msg.user { background: var(--chat); color: white; align-self: flex-end; }
 .msg.bot { background: #fbfaf7; border: 1px solid var(--border); align-self: flex-start; }
 .chatInputRow { display: flex; gap: 8px; }
 .chatInputRow input { flex: 1; margin-bottom: 0; }
+
+/* Footer */
+.app-footer {
+  margin-top: 28px;
+  padding: 18px 4px 4px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.footer-brand { font-weight: 600; color: var(--text); }
+.footer-sep { margin: 0 8px; color: var(--border); }
+.footer-links a { color: var(--summarizer-dark); text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+@media (max-width: 560px) {
+  .footer-sep { display: none; }
+  .footer-main, .footer-links { display: flex; flex-direction: column; gap: 2px; }
+}
